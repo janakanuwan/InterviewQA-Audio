@@ -5,6 +5,8 @@ Generate the audio for the InterviewQA Excel sheet (i.e.e, text-to-speech genera
 ## Requirements
 
 - **Python Version**: Python 3.8 or later
+- **Libraries**:
+    - [pandas](https://pandas.pydata.org/) using `pip install pandas`
     - Install the following for text-to-speech
         - [OpenAI TTS](https://platform.openai.com/docs/guides/text-to-speech)
           using `pip install openai`
@@ -16,7 +18,8 @@ Generate the audio for the InterviewQA Excel sheet (i.e.e, text-to-speech genera
       credentials such as `{"openai_api_key": "KEY"}`
     - Create a file `credential/google_cloud_credentials.json` with [Google Cloud API](https://cloud.google.com/apis)
       credentials.
-        - Follow [authentication](https://github.com/GoogleCloudPlatform/hackathon-toolkit/blob/master/vision/README.md#authentication)
+        -
+        Follow [authentication](https://github.com/GoogleCloudPlatform/hackathon-toolkit/blob/master/vision/README.md#authentication)
         to get json key file and rename it to `google_cloud_credentials.json`
 
 ## Application Execution
