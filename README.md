@@ -7,6 +7,7 @@ Generate the audio for the InterviewQA Excel sheet (i.e.e, text-to-speech genera
 - **Python Version**: Python 3.8 or later
 - **Libraries**:
     - [pandas](https://pandas.pydata.org/) using `pip install pandas`
+    - [openpyxl](https://openpyxl.readthedocs.io/en/stable/) using `pip install openpyxl`
     - Install the following for text-to-speech
         - [OpenAI TTS](https://platform.openai.com/docs/guides/text-to-speech)
           using `pip install openai`
@@ -23,11 +24,13 @@ Generate the audio for the InterviewQA Excel sheet (i.e.e, text-to-speech genera
         to get json key file and rename it to `google_cloud_credentials.json`
 
 ## Application Execution
-- 
+
+- `python main.py`
 
 ## References
 
 - [OpenAI Text to speech](https://platform.openai.com/docs/guides/text-to-speech)
+- [GoogleCloud TextToSpeech](https://cloud.google.com/text-to-speech/docs/list-voices-and-types)
 
 
 

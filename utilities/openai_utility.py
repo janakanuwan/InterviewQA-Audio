@@ -10,9 +10,8 @@ OPENAI_CREDENTIAL_FILE = "openai_credential.json"
 
 _MODEL = "tts-1"
 # _MODEL = "tts-1-hd"
-_VOICE = "nova"
 _FORMAT = "mp3"
-_SPEED = 0.9
+_SPEED = 0.95  # 95% of the normal speed
 
 
 def _set_api_key():
@@ -23,8 +22,17 @@ def _set_api_key():
     os.environ["OPENAI_API_KEY"] = credential["openai_api_key"]
 
 
-_set_api_key()
-_client = OpenAI()
+_client = None
+
+
+def get_client():
+    global _client
+
+    if _client is None:
+        _set_api_key()
+        _client = OpenAI()
+
+    return _client
 
 
 def remove_unsupported_characters(text):
@@ -46,7 +54,7 @@ def create_ssml_words_with_breaks(text, word_gap_millis):
     """
 
 
-def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None):
+def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None, voice="nova"):
     '''
         text: can be any string or ssml_text
         file_name: file name to save the audio
@@ -80,9 +88,9 @@ def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None):
 
     print('text_to_speech: ', text_to_speech)
 
-    response = _client.audio.speech.create(
+    response = get_client().audio.speech.create(
         model=_MODEL,
-        voice=_VOICE,
+        voice=voice,
         input=text_to_speech,
         response_format=_FORMAT,
         speed=_SPEED

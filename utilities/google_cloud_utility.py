@@ -17,21 +17,53 @@ def _set_api_key():
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credential_file
 
 
-_set_api_key()
-# Set up the TTS client
-_client = texttospeech.TextToSpeechClient()
+_client = None
 
-# Configure the voice for Norwegian (e.g., Norwegian Bokmål)
-_VOICE = texttospeech.VoiceSelectionParams(
-    language_code="nb-NO",  # Norwegian Bokmål
-    ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-)
+
+def get_client():
+    global _client
+
+    if _client is None:
+        _set_api_key()
+        _client = texttospeech.TextToSpeechClient()
+
+    return _client
+
 
 # Configure the audio settings
 _AUDIO_CONFIG = texttospeech.AudioConfig(
     audio_encoding=texttospeech.AudioEncoding.MP3,
-    speaking_rate=0.9  # Set the speed here (0.9 is 90% of the normal speed)
+    speaking_rate=0.95  # Set the speed here (0.95 is 95% of the normal speed)
 )
+
+
+def _get_voice_params(voice_name=None, gender=None, language_code="en-US"):
+    """
+    :param voice_name: specific voice name to use (e.g., 'en-US-Wavenet-A')
+    :param gender: voice gender (MALE, FEMALE, or NEUTRAL)
+    :param language_code: language code (default is 'en-US')
+
+    :return:
+    """
+
+    # Configure voice parameters
+    voice_params = {}
+    voice_params['language_code'] = language_code
+
+    if voice_name:
+        voice_params['name'] = voice_name
+
+    if gender:
+        if gender.upper() == "MALE":
+            voice_params['ssml_gender'] = texttospeech.SsmlVoiceGender.MALE
+        elif gender.upper() == "FEMALE":
+            voice_params['ssml_gender'] = texttospeech.SsmlVoiceGender.FEMALE
+        else:
+            voice_params['ssml_gender'] = texttospeech.SsmlVoiceGender.NEUTRAL
+    else:
+        voice_params['ssml_gender'] = texttospeech.SsmlVoiceGender.NEUTRAL
+
+    return texttospeech.VoiceSelectionParams(**voice_params)
 
 
 def remove_unsupported_characters(text):
@@ -53,11 +85,15 @@ def create_ssml_words_with_breaks(text, word_gap_millis):
     """
 
 
-def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None):
+def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None, voice_name=None, gender=None,
+                   language_code="en-US"):
     '''
         text: can be any string or ssml_text
         file_name: file name to save the audio
         word_gap_millis: the gap between individual words in milliseconds (default = 0; i.e., no extra gaps)
+        voice_name: specific voice name to use (e.g., 'en-US-Standard-A')
+        gender: voice gender (MALE, FEMALE, or NEUTRAL)
+        language_code: language code (default is 'en-US')
 
         e.g.,;
         ssml_text = """
@@ -90,9 +126,9 @@ def save_tts_audio(text, file_name=None, word_gap_millis=0, directory=None):
     synthesis_input = texttospeech.SynthesisInput(text=text_to_speech)
 
     # Perform the text-to-speech request
-    response = _client.synthesize_speech(
+    response = get_client().synthesize_speech(
         input=synthesis_input,
-        voice=_VOICE,
+        voice=_get_voice_params(voice_name, gender, language_code),
         audio_config=_AUDIO_CONFIG
     )
 
