@@ -11,7 +11,7 @@ OPENAI_CREDENTIAL_FILE = "openai_credential.json"
 _MODEL = "tts-1"
 # _MODEL = "tts-1-hd"
 _FORMAT = "mp3"
-_SPEED = 0.95  # 95% of the normal speed
+_SPEED = 0.85  # 85% of the normal speed
 
 
 def _set_api_key():

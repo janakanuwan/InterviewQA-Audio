@@ -33,7 +33,7 @@ def get_client():
 # Configure the audio settings
 _AUDIO_CONFIG = texttospeech.AudioConfig(
     audio_encoding=texttospeech.AudioEncoding.MP3,
-    speaking_rate=0.95  # Set the speed here (0.95 is 95% of the normal speed)
+    speaking_rate=0.85  # Set the speed here (0.85 is 85% of the normal speed)
 )
 
 
