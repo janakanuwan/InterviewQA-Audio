@@ -43,10 +43,11 @@ def generate_audio_files(data_by_sheet):
 
         for qa_item in qa_data:
             id_val, question, answer = qa_item
+            id_str = str(id_val).zfill(2)
 
             # Generate question and answer audio files
-            question_filename = f"{sheet_name}_{id_val}_1q"
-            answer_filename = f"{sheet_name}_{id_val}_2a"
+            question_filename = f"{sheet_name}_{id_str}_1q"
+            answer_filename = f"{sheet_name}_{id_str}_2a"
 
             if TTS_SERVICE == "openai":
                 # OpenAI TTS - use different voices
