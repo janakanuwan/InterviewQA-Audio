@@ -1,6 +1,6 @@
 # InterviewQA-Audio
 
-Generate the audio (i.e., text-to-speech generator) for the InterviewQA Excel sheet (e.g., `Question_Answers.xlsx`).
+Generate the audio (i.e., text-to-speech generator) for the InterviewQA Excel sheet (e.g., `Questions_Answers.xlsx`).
 
 ## Requirements
 
@@ -20,7 +20,7 @@ Generate the audio (i.e., text-to-speech generator) for the InterviewQA Excel sh
 ## Application Execution
 
 - `python main.py`
-- The application will read the `Question_Answers.xlsx` file and generate audio files for each question and answer.
+- The application will read the `Questions_Answers.xlsx` file and generate audio files for each question and answer.
 - The generated audio files will be saved in the `output` folder with the naming convention `<SHEET_NAME>/<ID>_1q.mp3` (question), `<SHEET_NAME>/<ID>_2a.mp3` (answer), etc.
 
 ## References

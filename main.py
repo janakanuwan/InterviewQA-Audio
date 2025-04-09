@@ -87,7 +87,7 @@ def generate_audio_files(data_by_sheet):
 
 
 def main():
-    excel_file = "Question_Answers.xlsx"
+    excel_file = "Questions_Answers.xlsx"
 
     # Extract data from Excel
     data_by_sheet = extract_data_from_excel(excel_file)
